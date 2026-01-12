@@ -1,0 +1,29 @@
+{
+    "extends": [":automergeMinor", ":automergePr", ":automergeRequireAllStatusChecks", ":dependencyDashboard", ":disableRateLimiting", ":rebaseStalePrs"],
+    "baseBranches": ["master"],
+    "major": {
+        "dependencyDashboardApproval": true
+    },
+    "minimumReleaseAge": "7 days",
+    "customManagers": [
+        {
+        "customType": "regex",
+        "fileMatch": ["Dockerfile"],
+        "matchStrings": ["ARG S6_OVERLAY_VERSION=[\"](?<currentValue>.*)[\"]"],
+        "datasourceTemplate": "github-releases",
+        "depNameTemplate": "just-containers/s6-overlay"
+        }
+    ],
+    "packageRules": [
+        {
+        "matchDatasources": ["github-releases"],
+        "matchDepNames": ["just-containers/s6-overlay"],
+        "extractVersion": "^v(?<version>.*)$",
+        "versioning": "loose"
+        },
+        {
+        "matchPackagePatterns": ["certbot"],
+        "groupName": "certbot"
+        }
+    ]
+}

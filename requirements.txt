@@ -1,0 +1,5 @@
+# For pinning Python packages to then be parsed by Renovate
+
+certbot ==4.2.0
+certbot-dns-cloudflare ==4.2.0
+apprise ==1.9.4
